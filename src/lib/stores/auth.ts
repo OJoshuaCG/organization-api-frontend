@@ -1,8 +1,8 @@
 import { writable, derived, get } from 'svelte/store';
 import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
-import { apiClient } from '../client';
-import type { User, LoginCredentials, AuthResponse } from '../types';
+import { apiClient } from '$lib/api/client';
+import type { User, LoginCredentials, AuthResponse } from '$lib/api/types';
 import { toast } from 'svelte-sonner';
 
 interface AuthState {
@@ -184,6 +184,10 @@ export const user = derived(auth, ($auth) => $auth.user);
 export const isAuthenticated = derived(auth, ($auth) => $auth.isAuthenticated);
 export const isLoading = derived(auth, ($auth) => $auth.isLoading);
 export const userRole = derived(auth, ($auth) => $auth.user?.user_role_id);
+export const isAdminStore = derived(auth, ($auth) => {
+	if (!$auth.user) return false;
+	return [1, 2].includes($auth.user.user_role_id);
+});
 
 // Permission helpers
 export function hasRole(roleId: number): boolean {

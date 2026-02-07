@@ -1,8 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { auth, user, isAdmin } from '$lib/stores/auth';
+	import { auth, user, isAdminStore, isLoading } from '$lib/stores/auth';
+	import { browser } from '$app/environment';
 	import { Button } from '$lib/components/ui/button';
+	
+	let { children } = $props();
+	
+	// Protect route - redirect to login if not authenticated
+	$effect(() => {
+		if (browser && !$isLoading && !$auth.isAuthenticated) {
+			goto('/login');
+		}
+	});
 	import { ModeWatcher, toggleMode, mode } from '$lib/components/ui/mode-watcher';
 	import { 
 		LayoutDashboard, 
@@ -18,7 +28,6 @@
 		Sun
 	} from 'lucide-svelte';
 	
-	let { children } = $props();
 	let sidebarOpen = $state(true);
 	let mobileMenuOpen = $state(false);
 	let userMenuOpen = $state(false);
@@ -36,14 +45,19 @@
 		{ href: '/tenant/users', label: 'Usuarios', icon: Users },
 	];
 	
-	let navItems = $derived($isAdmin ? adminNavItems : tenantNavItems);
+	let navItems = $derived($isAdminStore ? adminNavItems : tenantNavItems);
 	
 	function handleLogout() {
 		auth.logout();
 	}
 </script>
 
-<div class="flex h-screen bg-background">
+{#if $isLoading}
+	<div class="flex h-screen items-center justify-center bg-background">
+		<div class="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+	</div>
+{:else if $auth.isAuthenticated}
+	<div class="flex h-screen bg-background">
 	<!-- Sidebar Desktop -->
 	<aside 
 		class="hidden lg:flex flex-col bg-surface border-r border-border transition-all duration-300 {sidebarOpen ? 'w-64' : 'w-20'}"
@@ -199,3 +213,4 @@
 		</main>
 	</div>
 </div>
+{/if}

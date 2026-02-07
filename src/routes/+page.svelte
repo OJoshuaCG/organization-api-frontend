@@ -42,14 +42,18 @@
 			
 			<!-- CTA Buttons -->
 			<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-				<Button size="lg" class="btn-primary text-base">
-					<Shield class="mr-2 h-5 w-5" />
-					Panel de Administración
-				</Button>
-				<Button size="lg" variant="outline" class="btn-secondary text-base">
-					<Users class="mr-2 h-5 w-5" />
-					Área de Clientes
-				</Button>
+				<a href="/dashboard">
+					<Button size="lg" class="btn-primary text-base">
+						<Shield class="mr-2 h-5 w-5" />
+						Panel de Administración
+					</Button>
+				</a>
+				<a href="/dashboard">
+					<Button size="lg" variant="outline" class="btn-secondary text-base">
+						<Users class="mr-2 h-5 w-5" />
+						Área de Clientes
+					</Button>
+				</a>
 			</div>
 		</div>
 	</section>

@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { mode } from './mode.svelte.js';
+	import { mode } from './mode';
+	import { browser } from '$app/environment';
 
 	onMount(() => {
+		if (!browser) return;
+		
 		// Initialize mode on mount
 		const stored = localStorage.getItem('mode');
 		const initial = stored === 'light' || stored === 'dark' 

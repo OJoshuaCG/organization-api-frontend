@@ -26,6 +26,9 @@ Frontend moderno para Organization API construido con SvelteKit y tema CYBER NOI
 # Instalar dependencias
 npm install
 
+# Sincronizar configuración de SvelteKit (obligatorio en primera instalación)
+npx svelte-kit sync
+
 # Iniciar servidor de desarrollo
 npm run dev
 
