@@ -96,6 +96,35 @@ export interface UpdateCompanyInput {
 	is_active?: boolean;
 }
 
+// User Input Types
+export interface CreateUserInput {
+	username: string;
+	email?: string;
+	password: string;
+	first_name?: string;
+	last_name?: string;
+	user_role_id: number;
+	organization_id?: number;
+	company_id?: number;
+	whmcs_id?: number;
+	phone_extension?: number;
+	is_active?: boolean;
+}
+
+export interface UpdateUserInput {
+	username?: string;
+	email?: string;
+	password?: string;
+	first_name?: string;
+	last_name?: string;
+	user_role_id?: number;
+	organization_id?: number;
+	company_id?: number;
+	whmcs_id?: number;
+	phone_extension?: number;
+	is_active?: boolean;
+}
+
 // API Response Types
 export interface ApiResponse<T> {
 	success: boolean;

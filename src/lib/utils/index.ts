@@ -74,3 +74,12 @@ export function generateId(length: number = 8): string {
 		.toString(36)
 		.substring(2, length + 2);
 }
+
+// Role Labels
+export const ROLE_LABELS: Record<number, string> = {
+	1: 'Super Admin',
+	2: 'Admin',
+	3: 'Organization Owner',
+	4: 'Company Owner',
+	5: 'User'
+};
