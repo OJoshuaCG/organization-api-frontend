@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Card } from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
-	import { user, isAdmin } from '$lib/stores/auth';
+	import { user, isAdminStore } from '$lib/stores/auth';
 	import { Building2, Users, Shield, ArrowUpRight } from 'lucide-svelte';
 </script>
 
@@ -32,7 +32,7 @@
 						<Building2 class="h-6 w-6 text-primary" />
 					</div>
 				</div>
-				{#if $isAdmin}
+				{#if $isAdminStore}
 					<Button variant="ghost" class="mt-4 -ml-2 text-primary" href="/admin/organizations">
 						Ver todas <ArrowUpRight class="ml-1 h-4 w-4" />
 					</Button>
@@ -52,7 +52,7 @@
 						<Building2 class="h-6 w-6 text-secondary" />
 					</div>
 				</div>
-				<Button variant="ghost" class="mt-4 -ml-2 text-secondary" href={$isAdmin ? '/admin/companies' : '/tenant/companies'}>
+				<Button variant="ghost" class="mt-4 -ml-2 text-secondary" href={$isAdminStore ? '/admin/companies' : '/tenant/companies'}>
 					Ver todas <ArrowUpRight class="ml-1 h-4 w-4" />
 				</Button>
 			</div>
@@ -70,7 +70,7 @@
 						<Users class="h-6 w-6 text-primary" />
 					</div>
 				</div>
-				<Button variant="ghost" class="mt-4 -ml-2 text-primary" href={$isAdmin ? '/admin/users' : '/tenant/users'}>
+				<Button variant="ghost" class="mt-4 -ml-2 text-primary" href={$isAdminStore ? '/admin/users' : '/tenant/users'}>
 					Ver todos <ArrowUpRight class="ml-1 h-4 w-4" />
 				</Button>
 			</div>
@@ -83,7 +83,7 @@
 			<div class="p-6">
 				<h3 class="text-lg font-semibold mb-4">Acciones Rápidas</h3>
 				<div class="flex flex-wrap gap-3">
-					{#if $isAdmin}
+{#if $isAdminStore}
 						<Button href="/admin/organizations/new" class="btn-primary">
 							<Building2 class="mr-2 h-4 w-4" />
 							Nueva Organización
@@ -93,7 +93,7 @@
 							Nueva Empresa
 						</Button>
 					{/if}
-					<Button href={$isAdmin ? '/admin/users/new' : '/tenant/users/new'} class="btn-secondary">
+					<Button href={$isAdminStore ? '/admin/users/new' : '/tenant/users/new'} class="btn-secondary">
 						<Users class="mr-2 h-4 w-4" />
 						Nuevo Usuario
 					</Button>

@@ -19,19 +19,19 @@
 		error = '';
 
 		const result = await auth.login({ username, password });
-		
-		if (result.success) {
+
+		if (result?.success) {
 			goto('/dashboard');
 		} else {
-			error = result.error || 'Error al iniciar sesión';
+			error = result?.error || 'Error al iniciar sesión';
 		}
-		
+
 		isLoading = false;
 	}
 
 	// Redirect if already authenticated
 	$effect(() => {
-		if (browser && auth.isAuthenticated) {
+		if (browser && $auth.isAuthenticated) {
 			goto('/dashboard');
 		}
 	});

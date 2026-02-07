@@ -34,8 +34,14 @@ function createAuthStore() {
 
 			if (token) {
 				try {
-					// Validate token and get user data
-					const response = await apiClient.get('/auth/me');
+					const controller = new AbortController();
+					const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+					const response = await apiClient.get('/auth/me', {
+						signal: controller.signal,
+					});
+					clearTimeout(timeoutId);
+
 					const user = response.data.data;
 
 					update((state) => ({
@@ -47,7 +53,6 @@ function createAuthStore() {
 						isLoading: false,
 					}));
 				} catch (error) {
-					// Token invalid, clear storage
 					localStorage.removeItem('access_token');
 					localStorage.removeItem('refresh_token');
 					update((state) => ({
@@ -96,7 +101,8 @@ function createAuthStore() {
 						isLoading: false,
 					}));
 
-					toast.success('Inicio de sesión exitoso');
+				toast.success('Inicio de sesión exitoso');
+					goto('/dashboard');
 					return { success: true };
 				}
 			} catch (error: any) {
